@@ -42,16 +42,16 @@ https://cashapp.github.io/2020-03-04/app-layer-encryption
 	* Each service is a assigned a key which is used to envelop encrypt the service keys
 
 ## Threat Model
-	* Threat
-		* An attacker gains access to the service data store
-		* Counter Measure
-			* Proposed encryption would ensure that all data is encryped via the EK/DK which is known to the service. The attacker would have to compromise the service key either via the service itself or KMS. The attacker could also compromise the KMS master key.
-		* An attacker gains access to the IAM role of the service granting it access to the KMS
-		* Counter Measure
-			* This would grant the actor access to the KMS however they would still need to provide the KMS master key assigned to the service to unlock in the instance. This data would need to be compromised from the service itself.
-		* An attacker has access to the service code or deployment artifacts
-		* Counter Measure
-			*If an attacker were able to gain access the source code and artifacts, the generally would have the access to the KMS master key for service however they would not poses the proper IAM role to access the KMS instance to decrypt the service key.
+* Threat
+	* An attacker gains access to the service data store
+	* Counter Measure
+		* Proposed encryption would ensure that all data is encryped via the EK/DK which is known to the service. The attacker would have to compromise the service key either via the service itself or KMS. The attacker could also compromise the KMS master key.
+	* An attacker gains access to the IAM role of the service granting it access to the KMS
+	* Counter Measure
+		* This would grant the actor access to the KMS however they would still need to provide the KMS master key assigned to the service to unlock in the instance. This data would need to be compromised from the service itself.
+	* An attacker has access to the service code or deployment artifacts
+	* Counter Measure
+		*If an attacker were able to gain access the source code and artifacts, the generally would have the access to the KMS master key for service however they would not poses the proper IAM role to access the KMS instance to decrypt the service key.
 ## Key Rotation Protocol
 * Add new SK and distribute to services
 * Once data retention period has expired, remove old SK, data encrypted with old SK is now unusable and safely deletable via a batch process looking for who is encrypted with that key
